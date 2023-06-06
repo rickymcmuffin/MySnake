@@ -4,8 +4,9 @@ public class Main {
 		System.out.println("Welcome to Snake");
 
 
-		gameFrame frame = new gameFrame();
+		GameFrame frame = new GameFrame();
 
+		
 		frame.setVisible(true);
 
 		frame.setSize(500, 500);
