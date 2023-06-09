@@ -21,19 +21,25 @@ public class Game {
 	boolean extending;
 
 	public Game(int rows, int cols) {
-		snake = new Snake(rows / 2, cols / 2);
-		apple = new Point(rows / 2, cols / 2);
-		direction = Direction.LEFT;
-
-		board = new Space[rows][cols];
-		updateBoard();
-		updateApple();
-		updateBoard();
-
+		generateGame(rows, cols);
 		pane = new SnakePanel(board);
 
-		extending = false;
+	}
 
+	private void generateGame(int rows, int cols) {
+		board = new Space[rows][cols];
+
+		direction = Direction.LEFT;
+		snake = new Snake(rows / 2, cols / 2);
+
+		extending = false;
+		do {
+			int randomX = ThreadLocalRandom.current().nextInt(0, board.length - 1);
+			int randomY = ThreadLocalRandom.current().nextInt(0, board[0].length - 1);
+			apple = new Point(randomX, randomY);
+		} while (apple.equals(snake.getFirst()));
+
+		updateBoard();
 	}
 
 	public Snake getSnake() {
@@ -44,28 +50,44 @@ public class Game {
 		return pane;
 	}
 
-	public void playGame() {
+	public boolean isRunning() {
+		return running;
+	}
 
+	public void startGame() {
+		System.out.println("Game starting...");
+
+		running = true;
+		while (running) {
+			try {
+				Thread.sleep(100);
+				running = move();
+				pane.updateBoard(board);
+			} catch (Exception e) {
+				System.out.println("Ah rip");
+			}
+		}
 	}
 
 	public void setDirection(Direction d) {
-		direction = d;
-
+		if (Math.abs(d.getValue() - direction.getValue()) != 2) {
+			direction = d;
+		}
 		running = move();
-		System.out.println(running);
-
 		pane.updateBoard(board);
+
 	}
 
 	private boolean move() {
 
 		snake.move(direction, extending);
+		extending = false;
 
 		int x = snake.getFirst().x;
 		int y = snake.getFirst().y;
 
 		if (x < 0 || y < 0 || x >= board.length || y >= board[0].length
-				|| board[x][y] != Space.BODY) {
+				|| board[x][y] == Space.BODY) {
 
 			return false;
 		}
@@ -81,11 +103,11 @@ public class Game {
 
 	// puts apple in new position if it has been eaten
 	private void updateApple() {
-		while (board[apple.x][apple.y] != Space.BODY) {
+		do {
 			int randomX = ThreadLocalRandom.current().nextInt(0, board.length - 1);
 			int randomY = ThreadLocalRandom.current().nextInt(0, board[0].length - 1);
 			apple.setLocation(randomX, randomY);
-		}
+		} while (board[apple.x][apple.y] == Space.BODY);
 	}
 
 	private void updateBoard() {
@@ -107,6 +129,7 @@ public class Game {
 		if (pane == null) {
 			System.out.println("brethern");
 		}
+
 	}
 
 }

@@ -24,7 +24,7 @@ public class SnakePanel extends JPanel {
 				this.add(this.board[i][j]);
 			}
 		}
-
+		System.out.println("huh?");
 		updateBoard(board);
 
 	}
@@ -32,7 +32,6 @@ public class SnakePanel extends JPanel {
 	// updates board with new game position
 	// 1 is snake. 0 is no snake
 	public void updateBoard(Space[][] board) {
-
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				if(board[i][j] == Space.BODY){
