@@ -9,59 +9,43 @@ import javax.swing.*;
 public class SnakePanel extends JPanel {
 	JLabel board[][];
 
-	Game game;
 
 	// creates a new board with specified rows and columns
-	public SnakePanel(int rows, int cols) {
-		this.setLayout(new GridLayout(rows, cols));
+	public SnakePanel(Space[][] board) {
+		this.setLayout(new GridLayout(board.length, board[0].length));
 		this.setFocusable(true);
 
-		board = new JLabel[rows][cols];
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				board[i][j] = new JLabel();
-				board[i][j].setBackground(Color.BLACK);
-				board[i][j].setOpaque(true);
-				board[i][j].setText(i + ", " + j);
-				this.add(board[i][j]);
+		this.board = new JLabel[board.length][board[0].length];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				this.board[i][j] = new JLabel();
+				this.board[i][j].setOpaque(true);
+				this.board[i][j].setText(i + ", " + j);
+				this.add(this.board[i][j]);
 			}
 		}
-		game = new Game(rows, cols);
 
-		updateBoard(game.getSnake());
+		updateBoard(board);
 
 	}
 
 	// updates board with new game position
 	// 1 is snake. 0 is no snake
-	public void updateBoard(ArrayDeque<Point> snake) {
+	public void updateBoard(Space[][] board) {
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				board[i][j].setBackground(Color.BLACK);
+				if(board[i][j] == Space.BODY){
+					this.board[i][j].setBackground(Color.BLACK);
+				} else if (board[i][j] == Space.APPLE){
+					this.board[i][j].setBackground(Color.RED);
+				} else {
+					this.board[i][j].setBackground(Color.WHITE);
+				}
 			}
 		}
-		Iterator<Point> itr = snake.iterator();
-
-		while (itr.hasNext()) {
-			Point p = itr.next();
-			board[p.x][p.y].setBackground(Color.WHITE);
-
-		}
 
 	}
 
-	public void move(Direction d) {
-		System.out.println("bruh");
-		game.changeDirection(d);
-		System.out.println(game.getSnake());
-
-		if (game.running) {
-			updateBoard(game.getSnake());
-		} else {
-			JOptionPane.showMessageDialog(null, "YOU LOST");
-			System.exit(0);
-		}
-	}
 
 }

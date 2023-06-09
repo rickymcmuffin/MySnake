@@ -2,14 +2,26 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class GameFrame extends JFrame implements KeyListener{
-	SnakePanel gamePanel;
+	Game game;
 
 	public GameFrame(){
-		gamePanel = new SnakePanel(20, 20);
-		gamePanel.setSize(400, 400);
-		this.add(gamePanel);
+		game = new Game(20, 20);
+		SnakePanel pane = game.getPanel();
+		pane.setSize(400, 400);
+		//this.add(pane);
+		JPanel testPane = new JPanel();		
+
+		testPane.add(new JLabel("WHAT"));
+
+		this.add(testPane);
+
+
+
+		//this.add(new JLabel("getName()"));
 
 		addKeyListener(this);
 		setFocusable(true);
@@ -20,25 +32,25 @@ public class GameFrame extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("Pressed " + e.getKeyChar());
+		System.out.println("Pressed " + e.getKeyCode());
 		if(e.getKeyCode() == KeyEvent.VK_LEFT){
-			gamePanel.move(Direction.LEFT);
+			game.setDirection(Direction.LEFT);
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-			gamePanel.move(Direction.RIGHT);
+			game.setDirection(Direction.RIGHT);
 		} else if(e.getKeyCode() == KeyEvent.VK_UP){
-			gamePanel.move(Direction.UP);
+			game.setDirection(Direction.UP);
 		} else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-			gamePanel.move(Direction.DOWN);
+			game.setDirection(Direction.DOWN);
 		} 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("Released " + e.getKeyChar());
+		System.out.println("Released " + e.getKeyCode());
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println("Typed " + e.getKeyChar());
+		System.out.println("Typed " + e.getKeyCode());
 	}
 }
