@@ -20,7 +20,7 @@ public class SnakePanel extends JPanel {
 			for (int j = 0; j < board[0].length; j++) {
 				this.board[i][j] = new JLabel();
 				this.board[i][j].setOpaque(true);
-				this.board[i][j].setText(i + ", " + j);
+				// this.board[i][j].setText(i + ", " + j);
 				this.add(this.board[i][j]);
 			}
 		}
@@ -44,6 +44,10 @@ public class SnakePanel extends JPanel {
 			}
 		}
 
+	}
+
+	public void lose(){
+		JOptionPane.showMessageDialog(null,"You LOSE :(");
 	}
 
 

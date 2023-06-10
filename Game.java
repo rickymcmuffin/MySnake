@@ -3,6 +3,8 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
@@ -23,6 +25,8 @@ public class Game {
 	public Game(int rows, int cols) {
 		generateGame(rows, cols);
 		pane = new SnakePanel(board);
+
+		startGame();
 
 	}
 
@@ -55,26 +59,33 @@ public class Game {
 	}
 
 	public void startGame() {
-		System.out.println("Game starting...");
-
 		running = true;
-		while (running) {
-			try {
-				Thread.sleep(100);
+
+		Timer timer = new Timer();
+
+		timer.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				if(!running){
+					pane.lose();
+					timer.cancel();
+					return;
+				}
 				running = move();
 				pane.updateBoard(board);
-			} catch (Exception e) {
-				System.out.println("Ah rip");
 			}
-		}
+
+		}, 0, 300);
+
 	}
 
 	public void setDirection(Direction d) {
 		if (Math.abs(d.getValue() - direction.getValue()) != 2) {
 			direction = d;
 		}
-		running = move();
-		pane.updateBoard(board);
+		// running = move();
+		// pane.updateBoard(board);
 
 	}
 

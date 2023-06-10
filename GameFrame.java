@@ -9,7 +9,7 @@ public class GameFrame extends JFrame implements KeyListener{
 	Game game;
 
 	public GameFrame(){
-		game = new Game(10, 10);
+		game = new Game(20, 20);
 		SnakePanel pane = game.getPanel();
 		pane.setSize(400, 400);
 		this.add(pane);
@@ -29,7 +29,6 @@ public class GameFrame extends JFrame implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Pressed " + e.getKeyCode());
-
 
 		if(e.getKeyCode() == KeyEvent.VK_LEFT){
 			game.setDirection(Direction.LEFT);
