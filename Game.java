@@ -1,7 +1,4 @@
-import java.util.ArrayDeque;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.Timer;
 //import javax.swing.Timer;
@@ -27,7 +24,7 @@ public class Game {
 		generateGame(rows, cols);
 		pane = new SnakePanel(board);
 
-		startGame();
+		// startGame();
 
 	}
 
@@ -60,6 +57,8 @@ public class Game {
 	}
 
 	public void startGame() {
+		if(running)
+			return;
 		running = true;
 
 		Timer timer = new Timer();

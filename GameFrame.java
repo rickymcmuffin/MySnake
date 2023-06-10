@@ -2,14 +2,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class GameFrame extends JFrame implements KeyListener{
 	Game game;
 
 	public GameFrame(){
-		game = new Game(20, 20);
+		game = new Game(10, 10);
 		SnakePanel pane = game.getPanel();
 		pane.setSize(400, 400);
 		this.add(pane);
@@ -21,6 +19,7 @@ public class GameFrame extends JFrame implements KeyListener{
 		setFocusable(true);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Snake");
 
 
 
@@ -39,6 +38,8 @@ public class GameFrame extends JFrame implements KeyListener{
 		} else if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			game.setDirection(Direction.DOWN);
 		} 
+
+		game.startGame();
 
 	}
 

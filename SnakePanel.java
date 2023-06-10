@@ -1,8 +1,5 @@
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.util.ArrayDeque;
-import java.util.Iterator;
 
 import javax.swing.*;
 
