@@ -19,6 +19,7 @@ public class SnakePanel extends JPanel {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				this.board[i][j] = new JLabel();
+				this.board[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				this.board[i][j].setOpaque(true);
 				// this.board[i][j].setText(i + ", " + j);
 				this.add(this.board[i][j]);
