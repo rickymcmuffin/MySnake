@@ -9,11 +9,9 @@ public class GameFrame extends JFrame implements KeyListener{
 	public GameFrame(){
 		game = new Game(10, 10);
 		SnakePanel pane = game.getPanel();
-		pane.setSize(400, 400);
 		this.add(pane);
 
-
-
+		// this.setLocationRelativeTo(null);
 
 		addKeyListener(this);
 		setFocusable(true);
@@ -21,6 +19,7 @@ public class GameFrame extends JFrame implements KeyListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Snake");
 
+		this.pack();
 
 
 	}

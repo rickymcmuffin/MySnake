@@ -13,8 +13,7 @@ public class Main {
 		GameFrame frame = new GameFrame();
 		
 		frame.setVisible(true);
-
-		frame.setSize(500, 500);
+		frame.setSize(700, 700);
 	}
 
 }

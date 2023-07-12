@@ -5,6 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.JOptionPane;
+
 public class Game {
 
 	SnakePanel pane;
@@ -21,8 +23,10 @@ public class Game {
 	boolean extending;
 
 	public Game(int rows, int cols) {
-		generateGame(rows, cols);
+		board = new Space[rows][cols];
+
 		pane = new SnakePanel(board);
+		generateGame(rows, cols);
 
 		// startGame();
 
@@ -61,6 +65,7 @@ public class Game {
 			return;
 		running = true;
 
+		pane.startTimer();
 		Timer timer = new Timer();
 
 		timer.schedule(new TimerTask() {
@@ -68,12 +73,11 @@ public class Game {
 			@Override
 			public void run() {
 				if(!running){
-					pane.lose();
+					lose();
 					timer.cancel();
 					return;
 				}
 				running = move();
-				pane.updateBoard(board);
 			}
 
 		}, 0, 300);
@@ -109,6 +113,7 @@ public class Game {
 		}
 
 		updateBoard();
+		
 		return true;
 	}
 
@@ -140,7 +145,18 @@ public class Game {
 		if (pane == null) {
 			System.out.println("brethern");
 		}
+		pane.updateBoard(board);
 
+	}
+
+	private void lose(){
+		int option = JOptionPane.showConfirmDialog(null,"You LOSE :(\n Play again?( ͡° ͜ʖ ͡°)");
+
+		if(option == 0){
+			generateGame(10, 10);	
+		} else {
+			System.exit(0);
+		}
 	}
 
 }
